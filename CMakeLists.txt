@@ -3,7 +3,7 @@ project ("comms_all_protocols" NONE)
 
 include (ExternalProject)
 
-set (COMMON_BRANCH "develop")
+set (COMMON_BRANCH "master")
 
 set (COMMS_CHAMPION_PROJ "comms_champion")
 set (COMMS_CHAMPION_DIR "${CMAKE_BINARY_DIR}/${COMMS_CHAMPION_PROJ}")
