@@ -11,10 +11,10 @@ set (COMMS_CHAMPION_DIR "${CMAKE_BINARY_DIR}/${COMMS_CHAMPION_PROJ}")
 set (COMMS_CHAMPION_SRC_DIR "${COMMS_CHAMPION_DIR}/src")
 set (COMMS_CHAMPION_BIN_DIR "${COMMS_CHAMPION_DIR}/build")
 
-if (NOT "${COMMS_ALL_QT_DIR}" STREQUAL "")
-    set (extra_comms_champion_args "-DCC_QT_DIR=${COMMS_ALL_QT_DIR}")
-    set (extra_mqtt_args "-DMQTT_QT_DIR=${COMMS_ALL_QT_DIR}")
-    set (extra_ublox_args "-DUBLOX_QT_DIR=${COMMS_ALL_QT_DIR}")
+if (NOT "${CC_COMMS_ALL_QT_DIR}" STREQUAL "")
+    set (extra_comms_champion_args "-DCC_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
+    set (extra_mqtt_args "-DCC_MQTT_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
+    set (extra_ublox_args "-DCC_UBLOX_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
 endif ()
 
 ExternalProject_Add(
