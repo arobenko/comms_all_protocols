@@ -15,6 +15,7 @@ if (NOT "${CC_COMMS_ALL_QT_DIR}" STREQUAL "")
     set (extra_comms_champion_args "-DCC_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
     set (extra_mqtt_args "-DCC_MQTT_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
     set (extra_ublox_args "-DCC_UBLOX_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
+    set (extra_mqttsn_args "-DCC_MQTTSN_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
 endif ()
 
 ExternalProject_Add(
@@ -62,4 +63,22 @@ ExternalProject_Add(
     CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCC_UBLOX_INSTALL_DIR=${INSTALL_DIR} ${extra_ublox_args}
     BINARY_DIR "${UBLOX_BIN_DIR}"
 )
+
+set (MQTTSN_PROJ "mqtt-sn")
+set (MQTTSN_DIR "${CMAKE_BINARY_DIR}/${MQTTSN_PROJ}")
+set (MQTTSN_SRC_DIR "${MQTTSN_DIR}/src")
+set (MQTTSN_BIN_DIR "${MQTTSN_DIR}/build")
+
+ExternalProject_Add(
+    "${MQTTSN_PROJ}"
+    DEPENDS "${COMMS_CHAMPION_PROJ}" "${MQTT_PROJ}"
+    PREFIX "${MQTTSN_BIN_DIR}"
+    STAMP_DIR "${MQTTSN_BIN_DIR}"    
+    GIT_REPOSITORY "https://github.com/arobenko/mqtt-sn.git"
+    GIT_TAG "${COMMON_BRANCH}"
+    SOURCE_DIR "${MQTTSN_SRC_DIR}"
+    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCC_MQTTSN_BUILD_PLUGINS=ON -DCC_MQTTSN_INSTALL_DIR=${INSTALL_DIR} ${extra_mqttsn_args}
+    BINARY_DIR "${MQTTSN_BIN_DIR}"
+)
+
 
