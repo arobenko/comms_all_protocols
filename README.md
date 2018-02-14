@@ -9,3 +9,4 @@ The included communication protocols are:
 - [MQTT](https://github.com/arobenko/mqtt) - machine-to-machine (M2M)/"Internet of Things" 
 connectivity protocol.
 - [MQTT-SN](https://github.com/arobenko/mqtt-sn) - MQTT for Sensor Networks.
+- [Simple-Binary-Encoding](https://github.com/arobenko/sbe2comms) -  OSI layer 6 presentation for encoding and decoding binary application messages.

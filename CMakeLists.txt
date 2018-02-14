@@ -16,6 +16,7 @@ if (NOT "${CC_COMMS_ALL_QT_DIR}" STREQUAL "")
     set (extra_mqtt_args "-DCC_MQTT_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
     set (extra_ublox_args "-DCC_UBLOX_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
     set (extra_mqttsn_args "-DCC_MQTTSN_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
+    set (extra_sbe2comms_example_args "-DOPT_QT_DIR=${CC_COMMS_ALL_QT_DIR}")
 endif ()
 
 ExternalProject_Add(
@@ -92,6 +93,27 @@ ExternalProject_Add(
         ${extra_mqttsn_args}
     BINARY_DIR "${MQTTSN_BIN_DIR}"
     TEST_BEFORE_INSTALL 1
+)
+
+set (SBE2COMMS_EXAMPLE_PROJ "sbe2comms_example")
+set (SBE2COMMS_EXAMPLE_DIR "${CMAKE_BINARY_DIR}/${SBE2COMMS_EXAMPLE_PROJ}")
+set (SBE2COMMS_EXAMPLE_SRC_DIR "${SBE2COMMS_EXAMPLE_DIR}/src")
+set (SBE2COMMS_EXAMPLE_BIN_DIR "${SBE2COMMS_EXAMPLE_DIR}/build")
+
+ExternalProject_Add(
+    "${SBE2COMMS_EXAMPLE_PROJ}"
+    DEPENDS "${COMMS_CHAMPION_PROJ}"
+    PREFIX "${SBE2COMMS_EXAMPLE_BIN_DIR}"
+    STAMP_DIR "${SBE2COMMS_EXAMPLE_BIN_DIR}"    
+    GIT_REPOSITORY "https://github.com/arobenko/sbe2comms_example.git"
+    GIT_TAG "${COMMON_BRANCH}"
+    SOURCE_DIR "${SBE2COMMS_EXAMPLE_SRC_DIR}"
+    CMAKE_ARGS 
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DOPT_FULL_SOLUTION=OFF -DOPT_INSTALL_DIR=${INSTALL_DIR}   
+        -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} 
+        -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}    
+        ${extra_sbe2comms_example_args}
+    BINARY_DIR "${SBE2COMMS_EXAMPLE_BIN_DIR}"
 )
 
 
